@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>{{ assembly.title }}</h5>
+
+{% if not contract %}
+  <div class="alert alert-warning">Você não está vinculado a um contrato.</div>
+{% else %}
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="small text-muted">Seu contrato</div>
+      <div class="fw-bold">{{ contract.contract_number }} — Cota {{ contract.quota.number }}</div>
+      <div class="small text-muted mt-2">Elegibilidade</div>
+      <div class="fw-bold">{{ eligibility }}</div>
+    </div>
+  </div>
+
+  {% if assembly.status == "open_bids" and eligibility == "APTO" %}
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h6>Enviar lance</h6>
+        <form method="post" action="/portal/assemblies/{{ assembly.id }}/bid">
+          <div class="row g-2">
+            <div class="col-md-4">
+              <label class="form-label">Tipo</label>
+              <select class="form-select" name="type">
+                <option value="percentual" {% if my_bid and my_bid.type=="percentual" %}selected{% endif %}>Percentual</option>
+                <option value="embutido" {% if my_bid and my_bid.type=="embutido" %}selected{% endif %}>Embutido</option>
+                <option value="misto" {% if my_bid and my_bid.type=="misto" %}selected{% endif %}>Misto</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Lance (%)</label>
+              <input class="form-control" name="bid_percent" type="number" step="0.01" min="10" max="100"
+                     value="{{ my_bid.bid_percent if my_bid else 10 }}" required>
+              <div class="form-text">Min 10% / Máx 100%</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Embutido (%)</label>
+              <input class="form-control" name="embedded_percent" type="number" step="0.01" min="0" max="30"
+                     value="{{ my_bid.embedded_percent if my_bid else 0 }}">
+              <div class="form-text">Máx 30% e não pode ser maior que o lance</div>
+            </div>
+          </div>
+          <button class="btn btn-primary mt-3">Salvar lance</button>
+        </form>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if my_bid %}
+    <div class="alert alert-info">
+      Seu lance atual: {{ my_bid.bid_percent }}% (embutido {{ my_bid.embedded_percent }}%) — atualizado em {{ my_bid.updated_at }}
+    </div>
+  {% endif %}
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h6>Resultado</h6>
+      {% if assembly.minutes_pdf_path %}
+        <a class="btn btn-outline-success btn-sm" href="/files/{{ assembly.minutes_pdf_path }}">Baixar Ata (PDF)</a>
+      {% else %}
+        <div class="text-muted">Ainda não publicado.</div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

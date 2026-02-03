@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>Novo Cliente</h5>
+<form class="card card-body shadow-sm" method="post" action="/admin/customers/new">
+  <div class="row g-2">
+    <div class="col-md-6">
+      <label class="form-label">Nome completo</label>
+      <input class="form-control" name="full_name" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">CPF</label>
+      <input class="form-control" name="cpf" placeholder="000.000.000-00" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Telefone</label>
+      <input class="form-control" name="phone">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">E-mail (opcional)</label>
+      <input class="form-control" name="email" type="email">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Endereço</label>
+      <input class="form-control" name="address">
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3">Criar</button>
+</form>
+{% endblock %}

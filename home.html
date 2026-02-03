@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Backoffice</h5>
+        <p class="text-muted">Cadastros, contratos, parcelas e assembleias.</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-outline-primary btn-sm" href="/admin/groups">Grupos</a>
+          <a class="btn btn-outline-primary btn-sm" href="/admin/customers">Clientes</a>
+          <a class="btn btn-outline-primary btn-sm" href="/admin/contracts">Contratos</a>
+          <a class="btn btn-outline-primary btn-sm" href="/admin/assemblies">Assembleias</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5>Portal do Cliente</h5>
+        <p class="text-muted">Contrato, parcelas, lance e ata.</p>
+        <a class="btn btn-outline-success btn-sm" href="/portal">Minha área</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

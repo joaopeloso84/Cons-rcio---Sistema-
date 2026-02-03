@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>Novo Contrato</h5>
+<form class="card card-body shadow-sm" method="post" action="/admin/contracts/new">
+  <div class="row g-2">
+    <div class="col-md-6">
+      <label class="form-label">Cliente</label>
+      <select class="form-select" name="customer_id" required>
+        {% for c in customers %}
+          <option value="{{ c.id }}">{{ c.full_name }} ({{ c.cpf }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Cota disponível</label>
+      <select class="form-select" name="quota_id" required>
+        {% for q in quotas %}
+          <option value="{{ q.id }}">Grupo {{ q.group.name }} | Cota {{ q.number }}</option>
+        {% endfor %}
+      </select>
+      <div class="form-text">Só cotas com status "available".</div>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3">Gerar contrato (PDF)</button>
+</form>
+{% endblock %}

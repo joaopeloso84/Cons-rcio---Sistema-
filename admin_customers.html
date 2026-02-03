@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h5>Clientes</h5>
+  <a class="btn btn-primary btn-sm" href="/admin/customers/new">Novo cliente</a>
+</div>
+<table class="table table-sm table-striped bg-white">
+  <thead><tr><th>ID</th><th>Nome</th><th>CPF</th><th>Telefone</th><th>E-mail</th></tr></thead>
+  <tbody>
+  {% for c in customers %}
+    <tr>
+      <td>{{ c.id }}</td>
+      <td>{{ c.full_name }}</td>
+      <td>{{ c.cpf }}</td>
+      <td>{{ c.phone or "" }}</td>
+      <td>{{ c.email or "" }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

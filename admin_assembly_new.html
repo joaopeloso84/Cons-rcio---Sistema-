@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>Nova Assembleia</h5>
+<form class="card card-body shadow-sm" method="post" action="/admin/assemblies/new">
+  <div class="row g-2">
+    <div class="col-md-6">
+      <label class="form-label">Grupo</label>
+      <select class="form-select" name="group_id" required>
+        {% for g in groups %}
+          <option value="{{ g.id }}">{{ g.name }} ({{ g.segment }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Título</label>
+      <input class="form-control" name="title" placeholder="Assembleia Março/2026" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Abre lances (YYYY-MM-DD HH:MM)</label>
+      <input class="form-control" name="opens_at" placeholder="2026-03-10 09:00" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Fecha lances (YYYY-MM-DD HH:MM)</label>
+      <input class="form-control" name="closes_at" placeholder="2026-03-10 18:00" required>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3">Criar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h5>Contratos</h5>
+  <a class="btn btn-primary btn-sm" href="/admin/contracts/new">Novo contrato</a>
+</div>
+<table class="table table-sm table-striped bg-white">
+  <thead><tr><th>ID</th><th>Nº</th><th>Cliente</th><th>Grupo</th><th>Cota</th><th>Status</th><th>PDF</th></tr></thead>
+  <tbody>
+  {% for ct in contracts %}
+    <tr>
+      <td>{{ ct.id }}</td>
+      <td>{{ ct.contract_number }}</td>
+      <td>{{ ct.customer.full_name }}</td>
+      <td>{{ ct.quota.group.name }}</td>
+      <td>{{ ct.quota.number }}</td>
+      <td>{{ ct.status }}</td>
+      <td>{% if ct.pdf_path %}<a href="/files/{{ ct.pdf_path }}">Abrir</a>{% else %}-{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

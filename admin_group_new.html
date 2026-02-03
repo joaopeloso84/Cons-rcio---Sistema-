@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>Novo Grupo</h5>
+<form class="card card-body shadow-sm" method="post" action="/admin/groups/new">
+  <div class="row g-2">
+    <div class="col-md-6">
+      <label class="form-label">Nome</label>
+      <input class="form-control" name="name" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Segmento</label>
+      <select class="form-select" name="segment" required>
+        <option value="AUTO">AUTO</option>
+        <option value="IMOVEL">IMÓVEL</option>
+        <option value="SERVICOS">SERVIÇOS</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Total de cotas</label>
+      <input class="form-control" name="total_quotas" type="number" value="500" min="1" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Crédito (R$)</label>
+      <input class="form-control" name="credit_value" type="number" step="0.01" value="0" required>
+    </div>
+    <div class="col-md-8">
+      <label class="form-label">Regras de lance</label>
+      <div class="row g-2">
+        <div class="col"><input class="form-control" name="bid_min_percent" type="number" step="0.01" value="10" required></div>
+        <div class="col"><input class="form-control" name="bid_max_percent" type="number" step="0.01" value="100" required></div>
+        <div class="col"><input class="form-control" name="embedded_max_percent" type="number" step="0.01" value="30" required></div>
+      </div>
+      <div class="form-text">mín %, máx %, embutido máx %</div>
+    </div>
+  </div>
+  <button class="btn btn-primary mt-3">Criar grupo + gerar cotas</button>
+</form>
+{% endblock %}

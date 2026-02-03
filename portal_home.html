@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<h5>Minha Área</h5>
+
+{% if not contract %}
+  <div class="alert alert-warning">Este usuário ainda não está vinculado a um contrato.</div>
+{% else %}
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="small text-muted">Contrato</div>
+          <div class="fw-bold">{{ contract.contract_number }}</div>
+          <div class="small text-muted mt-2">Grupo / Cota</div>
+          <div>{{ contract.quota.group.name }} — Cota {{ contract.quota.number }}</div>
+        </div>
+        <div class="col-md-6">
+          <div class="small text-muted">Status</div>
+          <div class="fw-bold">{{ contract.status }}</div>
+          <div class="small text-muted mt-2">PDF</div>
+          {% if contract.pdf_path %}
+            <a href="/files/{{ contract.pdf_path }}">Abrir contrato</a>
+          {% else %}-{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h6>Parcelas</h6>
+          <table class="table table-sm">
+            <thead><tr><th>Comp.</th><th>Venc.</th><th>Valor</th><th>Status</th></tr></thead>
+            <tbody>
+              {% for i in installments %}
+                <tr>
+                  <td>{{ i.competence }}</td>
+                  <td>{{ i.due_date.date() }}</td>
+                  <td>R$ {{ "%.2f"|format(i.amount) }}</td>
+                  <td>{{ i.status }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <div class="small text-muted">Boleto bancário entra na Fase 2 quando você escolher banco/gateway.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h6>Assembleias</h6>
+          <table class="table table-sm">
+            <thead><tr><th>Assembleia</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              {% for a in assemblies %}
+                <tr>
+                  <td>{{ a.title }}</td>
+                  <td>{{ a.status }}</td>
+                  <td><a class="btn btn-outline-primary btn-sm" href="/portal/assemblies/{{ a.id }}">Abrir</a></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
